@@ -88,6 +88,46 @@ ggplot(average_grades, aes(x = `group`, y = avg_history_civ_se_asia)) +
   theme_minimal()
 
 ```
+## Question 7
+
+```{r}
+
+
+average_grades_by_course_second_semester <- grades |>
+  filter(`semester` == 2)|>
+  group_by(`course`) |>
+  summarize(avg_score = mean(`grade`, na.rm = TRUE))
+average_grades_by_course_second_semester
+
+average_grades_by_group_second_semester <- grades |>
+  filter(`semester` == 2)|>
+  group_by(`group`) |>
+  summarize(avg_score = mean(`grade`, na.rm = TRUE))
+average_grades_by_group_second_semester
+
+
+ggplot(average_grades_by_course_second_semester, aes(x = reorder(course, avg_score), y = avg_score)) +
+  geom_col(fill = "cornflowerblue") +
+  labs(title = "Average Grades by Course (Second Semester)",
+       x = "Course",
+       y = "Average Grade") +
+  coord_flip() +
+  theme_minimal()
+
+ggplot(average_grades_by_group_second_semester, aes(x = group, y = avg_score)) +
+  geom_col(fill = "lightseagreen") +
+  labs(title = "Average Grades by Group (Second Semester)",
+       x = "Group",
+       y = "Average Grade") +
+  theme_minimal()
+
+
+
+
+
+
+```
+
 
 
 
