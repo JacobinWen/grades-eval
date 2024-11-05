@@ -217,6 +217,38 @@ avg_grade_each_course|>
 
 ```
 
+## Question 13
+```{r}
+
+avg_grades <- grades |>
+  filter(course %in% c("Martial Arts and Self-Defense", "Language and Linguistics")) |>
+  group_by(id) |>
+  summarize(
+    avg_martial_arts = mean(grade[course == "Martial Arts and Self-Defense"], na.rm = TRUE),
+    avg_language_linguistics = mean(grade[course == "Language and Linguistics"], na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Step 2: Create the scatter plot
+ggplot(avg_grades, aes(x = avg_language_linguistics, y = avg_martial_arts)) +
+  geom_point(color = "steelblue", size = 3, alpha = 0.7) +  
+  geom_smooth(method = "lm", se = FALSE, color = "red") +  
+  labs(
+    title = "Average Grades in Martial Arts and Self-Defense vs. Language and Linguistics",
+    x = "Average Grades in Language and Linguistics",
+    y = "Average Grades in Martial Arts and Self-Defense"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12)
+  )
+
+```
+
+
+
 
 
 
