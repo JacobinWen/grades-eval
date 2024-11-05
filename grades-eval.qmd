@@ -43,8 +43,23 @@ The number of students is 719.
 
 ```{r}
 
+students <- grades |>
+  distinct(`id`,.keep_all = TRUE)|>
+  select(`group`,`id`)
+
+students |>
+  slice_tail(n=5) |>
+  knitr::kable()
 
 
 ```
+
+## Question 5
+```{r}
+
+
+
+```
+
 
 The `echo: false` option disables the printing of code (only output is displayed).
