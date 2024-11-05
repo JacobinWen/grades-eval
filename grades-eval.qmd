@@ -313,6 +313,51 @@ ggplot(avg_grades_most_correlated, aes(x = avg_architecture_sculpture, y = avg_l
 
 ```
 
+## Question 16
+
+```{r}
+
+
+# Step 1: Calculate the average grades for each course
+avg_grades <- grades |>
+  group_by(id, group, course) |>
+  summarize(avg_grade = mean(grade, na.rm = TRUE), .groups = "drop")
+
+# Step 2: Calculate the final grade as the average of average grades
+final_grades <- avg_grades |>
+  group_by(id, group) |>
+  summarize(final_grade = mean(avg_grade, na.rm = TRUE), .groups = "drop")
+
+# Step 3: Sort the dataframe in decreasing order of final grade
+final_grades_sorted <- final_grades |>
+  arrange(desc(final_grade))
+
+# Display the resulting dataframe
+head(final_grades_sorted,5)
+
+
+
+```
+## Question 17
+```{r}
+
+ggplot(final_grades_sorted, aes(x = final_grade, fill = group)) +
+  geom_density(alpha = 0.5) +  # Use alpha for transparency
+  facet_wrap(~ group) +  # Create a separate plot for each group
+  labs(
+    title = "Density Distribution of Final Grades by Group",
+    x = "Final Grade",
+    y = "Density"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12)
+  )
+
+```
+
 
 
 
