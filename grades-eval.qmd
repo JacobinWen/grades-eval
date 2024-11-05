@@ -358,7 +358,36 @@ ggplot(final_grades_sorted, aes(x = final_grade, fill = group)) +
 
 ```
 
+## Question 18
 
+```{r}
+
+# Step 1: Calculate average grades per course and final grades
+avg_course_grade <- grades |>
+  group_by(id, group, semester, course) |>
+  summarize(avg_course_grade = mean(grade, na.rm = TRUE), .groups = "drop")
+
+avg_semester_grades <- grades |>
+  group_by(id, group) |>
+  summarize(
+    final_grade = mean(avg_course_grade, na.rm = TRUE), 
+    avg_semester1 = mean(avg_course_grade[avg_course_grade[semester == 1]], na.rm = TRUE),
+    avg_semester2 = mean(avg_course_grade[avg_course_grade[semester == 2]], na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+
+
+```
+
+## Question 19
+
+```{r}
+
+
+
+```
 
 
 
