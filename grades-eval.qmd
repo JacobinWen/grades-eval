@@ -57,7 +57,7 @@ students |>
 ## Question 5
 ```{r}
 
-students_per_group <- students %>%
+students_per_group <- students |>
   count(group)
 students_per_group
 
@@ -69,6 +69,28 @@ ggplot(students_per_group, aes(x = group, y = n)) +
   theme_minimal()
 
 ```
+
+## Question 6
+
+```{r}
+
+average_grades <- grades |>
+  filter(`course` == "History and Civilization of Southeast Asia")|>
+  group_by(`group`) |>
+  summarize(avg_history_civ_se_asia = mean(`grade`, na.rm = TRUE))
+average_grades
+
+ggplot(average_grades, aes(x = `group`, y = avg_history_civ_se_asia)) +
+  geom_col(fill = "steelblue") +
+  labs(title = "Average Grade in History and Civilization of Southeast Asia by Group",
+       x = "Group",
+       y = "Average Grade") +
+  theme_minimal()
+
+```
+
+
+
 
 
 
