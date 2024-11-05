@@ -367,14 +367,23 @@ avg_course_grade <- grades |>
   group_by(id, group, semester, course) |>
   summarize(avg_course_grade = mean(grade, na.rm = TRUE), .groups = "drop")
 
-avg_semester_grades <- grades |>
+avg_semester_grades_1 <- grades |>
+  filter(`semester`==1)|>
   group_by(id, group) |>
   summarize(
-    final_grade = mean(avg_course_grade, na.rm = TRUE), 
-    avg_semester1 = mean(avg_course_grade[avg_course_grade[semester == 1]], na.rm = TRUE),
-    avg_semester2 = mean(avg_course_grade[avg_course_grade[semester == 2]], na.rm = TRUE),
+    avg_semester1 = mean(grade,na.rm = TRUE),.groups = "drop"
+  )
+
+avg_semester_grades_2 <- grades |>
+  filter(`semester`==2)|>
+  group_by(id, group) |>
+  summarize(
+    avg_semester2 = mean(grade, na.rm = TRUE),
     .groups = "drop"
   )
+
+
+
 ```
 
 
