@@ -246,6 +246,36 @@ ggplot(avg_grades, aes(x = avg_language_linguistics, y = avg_martial_arts)) +
   )
 
 ```
+## Question 14
+
+```{r}
+
+avg_grades_grouped <- grades |>
+  filter(course %in% c("Language and Linguistics", "Architecture and Sculpture")) |>
+  group_by(id, course) |>
+  mutate(avg_grade = mean(grade,na.rm = TRUE))|>
+  select(`group`,`id`,`course`,`avg_grade`)|>
+  distinct(`id`,`course`,.keep_all = TRUE)
+ 
+
+# Step 2: Spread the data to wide format to have separate columns for each course
+avg_grades_wide <- avg_grades_grouped |>
+  pivot_wider(
+    names_from = course,
+    values_from = avg_grade,
+    values_fill = list(avg_grade = NA)  # Fill missing values with NA
+  )
+
+# Step 3: Compute the correlation between the average grades
+correlation_results <- avg_grades_wide |>
+  group_by(`group`)|>
+  summarise(correlation = cor(`Language and Linguistics`, `Architecture and Sculpture`, use = "complete.obs"))
+
+# Display the correlation results
+correlation_results
+
+```
+
 
 
 
