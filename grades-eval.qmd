@@ -131,7 +131,8 @@ ggplot(average_grades_by_group_second_semester, aes(x = group, y = avg_score)) +
 num_grades <- grades|>
   group_by(`id`)|>
   mutate(num_grades = n())|>
-  select(`group`,`id`,`num_grades`)
+  select(`group`,`id`,`num_grades`)|>
+  distinct(id, .keep_all = TRUE)
 
 num_grades |>
   slice_tail(n=5) |>
@@ -141,6 +142,21 @@ num_grades |>
 ```
 
 ## Question 9
+
+```{r}
+
+grades_arch_sculp <- grades|>
+  filter(`course` == "Architecture and Sculpture")|>
+  group_by(`id`)|>
+  mutate(num_grades = n())|>
+  select(`group`,`id`,`num_grades`)|>
+  distinct(`id`, .keep_all = TRUE)
+grades_arch_sculp|>
+  slice_tail(n=5)|>
+  knitr::kable()
+
+```
+
 
 
 
