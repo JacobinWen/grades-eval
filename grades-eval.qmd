@@ -16,6 +16,7 @@ library(here)
 library(vroom)
 library(ggplot2)
 library(dplyr)
+library(tidyr)
 
 ```
 
@@ -194,6 +195,25 @@ ggplot(num_grades_arch_sculp, aes(x = factor(num_grades))) +
        y = "Count of Students") +
   facet_wrap(~ group) + 
   theme_minimal()
+
+```
+# Grade Analysis
+## Question 12
+
+```{r}
+
+avg_grade_each_course <- grades|>
+  group_by(`id`,`course`)|>
+  mutate(avg_scores = mean(`grade`))|>
+  select(`group`,`id`,`course`,`avg_scores`)|>
+  distinct(`id`,`course`,.keep_all = TRUE)|>
+  pivot_wider(
+    names_from = course,          # Use course names as new column headers
+    values_from = avg_scores      # Use avg_scores as values in the new columns
+  )
+avg_grade_each_course|>
+  select(1:4) |>
+  head(5)
 
 ```
 
