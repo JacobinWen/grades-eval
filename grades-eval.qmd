@@ -276,6 +276,45 @@ correlation_results
 
 ```
 
+## Question 15
+
+```{r}
+
+group_most_correlated <- correlation_results|>
+  filter(`correlation` == max(correlation))|>
+  pull(group)
+
+avg_grades_most_correlated <- grades |>
+  filter(course %in% c("Language and Linguistics", "Architecture and Sculpture"),
+         group == group_most_correlated) |>
+  group_by(id) |>
+  summarize(
+    avg_language_linguistics = mean(grade[course == "Language and Linguistics"], na.rm = TRUE),
+    avg_architecture_sculpture = mean(grade[course == "Architecture and Sculpture"], na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Step 2: Create the scatter plot
+ggplot(avg_grades_most_correlated, aes(x = avg_architecture_sculpture, y = avg_language_linguistics)) +
+  geom_point(color = "steelblue", size = 3, alpha = 0.7) +  
+  geom_smooth(method = "lm", se = FALSE, color = "red") +  
+  labs(
+    title = paste("Average Grades in Language and Linguistics vs. Architecture and Sculpture for Group", group_most_correlated),
+    x = "Average Grades in Architecture and Sculpture",
+    y = "Average Grades in Language and Linguistics"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12)
+  )
+
+
+```
+
+
+
 
 
 
