@@ -5,7 +5,7 @@ format: html
 editor: visual
 ---
 
-
+# Simple Analysis
 ## Question 1 Data Import
 
 
@@ -121,12 +121,26 @@ ggplot(average_grades_by_group_second_semester, aes(x = group, y = avg_score)) +
        y = "Average Grade") +
   theme_minimal()
 
+```
+# Attendance Analysis
 
+## Question 8
 
+```{r}
 
+num_grades <- grades|>
+  group_by(`id`)|>
+  mutate(num_grades = n())|>
+  select(`group`,`id`,`num_grades`)
+
+num_grades |>
+  slice_tail(n=5) |>
+  knitr::kable()
 
 
 ```
+
+## Question 9
 
 
 
