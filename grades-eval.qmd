@@ -177,6 +177,26 @@ ggplot(grades_distribution, aes(x = num_grades, y = num_students)) +
 
 ```
 
+## Question 11
+
+```{r}
+
+num_grades_arch_sculp <- grades |>
+  filter(course == "Architecture and Sculpture") |>
+  group_by(id, group) |>
+  summarise(num_grades = n(), .groups = "drop")
+
+
+ggplot(num_grades_arch_sculp, aes(x = factor(num_grades))) +
+  geom_bar(fill = "lightblue") +
+  labs(title = "Number of Grades per Student in Architecture and Sculpture by Group",
+       x = "Number of Grades",
+       y = "Count of Students") +
+  facet_wrap(~ group) + 
+  theme_minimal()
+
+```
+
 
 
 
