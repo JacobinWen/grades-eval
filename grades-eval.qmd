@@ -57,9 +57,19 @@ students |>
 ## Question 5
 ```{r}
 
+students_per_group <- students %>%
+  count(group)
+students_per_group
 
+ggplot(students_per_group, aes(x = group, y = n)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Number of Students per Group",
+       x = "Group",
+       y = "Number of Students") +
+  theme_minimal()
 
 ```
+
 
 
 The `echo: false` option disables the printing of code (only output is displayed).
