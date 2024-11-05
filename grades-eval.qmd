@@ -1,0 +1,50 @@
+---
+title: "graded lab dplyr"
+author: "Puwen WEN"
+format: html
+editor: visual
+---
+
+
+## Question 1 Data Import
+
+
+```{r}
+#| message: false
+here::i_am("grades-eval.Rproj")
+library(here)
+library(vroom)
+library(ggplot2)
+library(dplyr)
+
+```
+
+You can add options to executable code like this
+
+```{r}
+#| message: false
+grades <- vroom(here("grades.csv"))
+```
+## Question 2
+
+The dataset contains 48083 grades.
+
+## Question 3
+```{r}
+
+num_students <- grades |>
+  distinct(`id`)|>
+  count(name = "num_students")
+num_students
+```
+The number of students is 719.
+
+## Question 4
+
+```{r}
+
+
+
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
